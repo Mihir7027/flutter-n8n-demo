@@ -14,12 +14,12 @@ class ProfileHeader extends StatelessWidget {
         const SizedBox(height: 8),
         Text(
           'John Doe',
-          style: Theme.of(context).textTheme.headline6,
+          style: Theme.of(context).textTheme.titleLarge, // Updated
         ),
         const SizedBox(height: 4),
         Text(
           'johndoe@example.com',
-          style: Theme.of(context).textTheme.subtitle1,
+          style: Theme.of(context).textTheme.bodyMedium, // Updated
         ),
       ],
     );
