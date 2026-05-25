@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/router/route_names.dart';
-import '../../../calculator/presentation/screens/calculator_screen.dart'; // Import added
-import '../../../profile/presentation/screens/profile_screen.dart'; // Import added
+import '../../../calculator/presentation/screens/calculator_screen.dart';
+import '../../../profile/presentation/screens/profile_screen.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
