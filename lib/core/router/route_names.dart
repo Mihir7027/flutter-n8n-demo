@@ -1,5 +1,6 @@
 class RouteNames {
   static const splash = '/';
   static const home = '/home';
-  // Add feature routes here
+  static const calculator = '/calculator';
+  static const profile = '/profile';
 }
