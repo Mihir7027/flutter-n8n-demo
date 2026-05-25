@@ -1,38 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/router/route_names.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
-
+class SplashScreen extends ConsumerWidget {
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    Future.delayed(const Duration(seconds: 3), () {
+      context.go(RouteNames.home);
+    });
 
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-    _navigate();
-  }
-
-  Future<void> _navigate() async {
-    await Future.delayed(const Duration(seconds: 2));
-    if (mounted) context.go(RouteNames.home);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FlutterLogo(size: 80),
-            SizedBox(height: 24),
-            Text('flutter_n8n_demo', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-          ],
-        ),
+        child: CircularProgressIndicator(),
       ),
     );
   }
