@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/router/route_names.dart';
+import '../../../calculator/presentation/screens/calculator_screen.dart'; // Import added
+import '../../../profile/presentation/screens/profile_screen.dart'; // Import added
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -15,8 +17,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   final List<Widget> _pages = const [
     Center(child: Text('Welcome to flutter_n8n_demo')),
-    CalculatorScreen(),
-    ProfileScreen(),
+    CalculatorScreen(), // Already defined
+    ProfileScreen(), // Already defined
   ];
 
   @override
