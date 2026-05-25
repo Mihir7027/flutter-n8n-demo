@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../widgets/calculator_ui.dart';
 
-class CalculatorScreen extends ConsumerWidget {
-  const CalculatorScreen({super.key});
+class CalculatorScreen extends StatelessWidget {
+  const CalculatorScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Calculator')), 
-      body: const Center(
-        child: Text('Calculator Screen'),
+      appBar: AppBar(
+        title: const Text('Calculator Screen'),
       ),
+      body: const CalculatorUI(),
     );
   }
 }
