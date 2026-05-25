@@ -8,11 +8,11 @@ class InfoSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('About Me', style: Theme.of(context).textTheme.headline6),
+        Text('About Me', style: Theme.of(context).textTheme.titleLarge), // Updated
         const SizedBox(height: 4),
         Text(
           'Software Developer with a passion for mobile applications.',
-          style: Theme.of(context).textTheme.bodyText2,
+          style: Theme.of(context).textTheme.bodyLarge, // Updated
         ),
       ],
     );
