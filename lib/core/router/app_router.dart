@@ -1,17 +1,12 @@
 import 'package:go_router/go_router.dart';
 import 'routes/home_routes.dart';
 import 'route_names.dart';
+import '../../../../features/home/presentation/screens/home_screen.dart';
 
 class AppRouter {
   static GoRouter get router {
     return GoRouter(
-      routes: [
-        ...homeRoutes,
-        GoRoute(
-          path: RouteNames.home,
-          builder: (context, state) => const HomeScreen(),
-        ),
-      ],
+      routes: homeRoutes,
     );
   }
 }
