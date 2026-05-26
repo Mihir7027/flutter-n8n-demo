@@ -128,31 +128,31 @@ class ProfileScreen extends ConsumerWidget {
               ),
               child: Column(
                 children: <Widget>[
-                  const InfoTile(
+                  InfoTile(
                     icon: Icons.email_outlined,
                     label: 'EMAIL',
                     value: dummyProfile.email,
                   ),
                   _TileDivider(),
-                  const InfoTile(
+                  InfoTile(
                     icon: Icons.phone_outlined,
                     label: 'PHONE',
                     value: dummyProfile.phone,
                   ),
                   _TileDivider(),
-                  const InfoTile(
+                  InfoTile(
                     icon: Icons.location_on_outlined,
                     label: 'LOCATION',
                     value: dummyProfile.location,
                   ),
                   _TileDivider(),
-                  const InfoTile(
+                  InfoTile(
                     icon: Icons.language_outlined,
                     label: 'WEBSITE',
                     value: dummyProfile.website,
                   ),
                   _TileDivider(),
-                  const InfoTile(
+                  InfoTile(
                     icon: Icons.calendar_today_outlined,
                     label: 'MEMBER SINCE',
                     value: dummyProfile.joinDate,
