@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../logic/calculator_notifier.dart';
+import '../../logic/calculator_state.dart';
 import '../widgets/calculator_button.dart';
 
 class CalculatorScreen extends ConsumerWidget {
@@ -9,6 +11,9 @@ class CalculatorScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme cs = theme.colorScheme;
+    final CalculatorState calcState = ref.watch(calculatorProvider);
+    final CalculatorNotifier calcNotifier =
+        ref.read(calculatorProvider.notifier);
 
     return Scaffold(
       backgroundColor: cs.surface,
@@ -27,13 +32,15 @@ class CalculatorScreen extends ConsumerWidget {
       body: SafeArea(
         child: Column(
           children: <Widget>[
-            // ── Display panel ──────────────────────────────────────────
             Expanded(
               flex: 3,
-              child: _DisplayPanel(colorScheme: cs, theme: theme),
+              child: _DisplayPanel(
+                colorScheme: cs,
+                theme: theme,
+                displayValue: calcState.display,
+                expression: calcState.expression,
+              ),
             ),
-
-            // ── Divider ────────────────────────────────────────────────
             Divider(
               height: 1,
               thickness: 1,
@@ -41,13 +48,13 @@ class CalculatorScreen extends ConsumerWidget {
               indent: 24,
               endIndent: 24,
             ),
-
-            // ── Button grid ────────────────────────────────────────────
             Expanded(
               flex: 5,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
-                child: _ButtonGrid(),
+                child: _ButtonGrid(
+                  onButtonPressed: calcNotifier.onButtonPressed,
+                ),
               ),
             ),
           ],
@@ -57,18 +64,18 @@ class CalculatorScreen extends ConsumerWidget {
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Display Panel
-// ─────────────────────────────────────────────────────────────────────────────
-
 class _DisplayPanel extends StatelessWidget {
   const _DisplayPanel({
     required this.colorScheme,
     required this.theme,
+    required this.displayValue,
+    required this.expression,
   });
 
   final ColorScheme colorScheme;
   final ThemeData theme;
+  final String displayValue;
+  final String expression;
 
   @override
   Widget build(BuildContext context) {
@@ -79,9 +86,8 @@ class _DisplayPanel extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-          // History / expression line
           Text(
-            '750 ÷ 3',
+            expression,
             style: theme.textTheme.titleMedium?.copyWith(
               color: colorScheme.onSurface.withOpacity(0.45),
               fontWeight: FontWeight.w400,
@@ -91,12 +97,11 @@ class _DisplayPanel extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(height: 8),
-          // Main result line
           FittedBox(
             fit: BoxFit.scaleDown,
             alignment: Alignment.centerRight,
             child: Text(
-              '250',
+              displayValue,
               style: theme.textTheme.displayLarge?.copyWith(
                 color: colorScheme.onSurface,
                 fontWeight: FontWeight.w300,
@@ -111,49 +116,40 @@ class _DisplayPanel extends StatelessWidget {
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Button Grid — builds rows from static data
-// ─────────────────────────────────────────────────────────────────────────────
-
 class _ButtonGrid extends StatelessWidget {
-  _ButtonGrid();
+  const _ButtonGrid({required this.onButtonPressed});
 
-  // Pre-split rows: each row is a list of [label, type, flex] triples.
-  static const List<List<List<dynamic>>> _rows =
-      <List<List<dynamic>>>[
-    // Row 1
-    [
-      ['AC', CalculatorButtonType.function, 1],
-      ['+/-', CalculatorButtonType.function, 1],
-      ['%', CalculatorButtonType.function, 1],
-      ['÷', CalculatorButtonType.operator, 1],
+  final void Function(String) onButtonPressed;
+
+  static const List<List<List<dynamic>>> _rows = <List<List<dynamic>>>[
+    <List<dynamic>>[
+      <dynamic>['AC', CalculatorButtonType.function, 1],
+      <dynamic>['+/-', CalculatorButtonType.function, 1],
+      <dynamic>['%', CalculatorButtonType.function, 1],
+      <dynamic>['÷', CalculatorButtonType.operator, 1],
     ],
-    // Row 2
-    [
-      ['7', CalculatorButtonType.number, 1],
-      ['8', CalculatorButtonType.number, 1],
-      ['9', CalculatorButtonType.number, 1],
-      ['×', CalculatorButtonType.operator, 1],
+    <List<dynamic>>[
+      <dynamic>['7', CalculatorButtonType.number, 1],
+      <dynamic>['8', CalculatorButtonType.number, 1],
+      <dynamic>['9', CalculatorButtonType.number, 1],
+      <dynamic>['×', CalculatorButtonType.operator, 1],
     ],
-    // Row 3
-    [
-      ['4', CalculatorButtonType.number, 1],
-      ['5', CalculatorButtonType.number, 1],
-      ['6', CalculatorButtonType.number, 1],
-      ['−', CalculatorButtonType.operator, 1],
+    <List<dynamic>>[
+      <dynamic>['4', CalculatorButtonType.number, 1],
+      <dynamic>['5', CalculatorButtonType.number, 1],
+      <dynamic>['6', CalculatorButtonType.number, 1],
+      <dynamic>['−', CalculatorButtonType.operator, 1],
     ],
-    // Row 4
-    [
-      ['1', CalculatorButtonType.number, 1],
-      ['2', CalculatorButtonType.number, 1],
-      ['3', CalculatorButtonType.number, 1],
-      ['+', CalculatorButtonType.operator, 1],
+    <List<dynamic>>[
+      <dynamic>['1', CalculatorButtonType.number, 1],
+      <dynamic>['2', CalculatorButtonType.number, 1],
+      <dynamic>['3', CalculatorButtonType.number, 1],
+      <dynamic>['+', CalculatorButtonType.operator, 1],
     ],
-    // Row 5 — '0' has flex 2
-    [
-      ['0', CalculatorButtonType.number, 2],
-      ['.', CalculatorButtonType.number, 1],
-      ['=', CalculatorButtonType.equals, 1],
+    <List<dynamic>>[
+      <dynamic>['0', CalculatorButtonType.number, 2],
+      <dynamic>['.', CalculatorButtonType.number, 1],
+      <dynamic>['=', CalculatorButtonType.equals, 1],
     ],
   ];
 
@@ -165,10 +161,12 @@ class _ButtonGrid extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: row.map((List<dynamic> btn) {
+              final String label = btn[0] as String;
               return CalculatorButton(
-                label: btn[0] as String,
+                label: label,
                 type: btn[1] as CalculatorButtonType,
                 flex: btn[2] as int,
+                onTap: () => onButtonPressed(label),
               );
             }).toList(),
           ),
