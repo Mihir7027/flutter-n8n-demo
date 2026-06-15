@@ -1,16 +1,13 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'route_names.dart';
-import 'routes/home_routes.dart';
-import '../../features/splash/presentation/screens/splash_screen.dart';
+import 'package:flutter_n8n_demo/core/theme/app_theme.dart';
+import '../features/coming_soon/presentation/coming_soon_screen.dart';
 
 final appRouter = GoRouter(
-  initialLocation: RouteNames.splash,
-  debugLogDiagnostics: true,
   routes: [
     GoRoute(
-      path: RouteNames.splash,
-      builder: (context, state) => const SplashScreen(),
+      path: '/coming-soon',
+      builder: (context, state) => const ComingSoonScreen(),
     ),
-    ...homeRoutes,
   ],
 );
