@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'core/router/app_router.dart';
-import 'core/theme/app_theme.dart';
+import 'package:go_router/go_router.dart';
+import 'package:flutter_n8n_demo/core/router/app_router.dart';
 
-class App extends ConsumerWidget {
-  const App({super.key});
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'flutter_n8n_demo',
-      theme: AppTheme.light,
-      darkTheme: AppTheme.dark,
+      title: 'Flutter Demo',
       routerConfig: appRouter,
-      debugShowCheckedModeBanner: false,
     );
   }
 }
